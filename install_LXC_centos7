@@ -1,0 +1,11 @@
+#Install LXC in Centos 7 
+yum install epel-release
+
+yum install debootstrap perl libvirt
+
+yum install lxc lxc-templates
+
+systemctl start lxc.service libvirtd 
+
+systemctl is-active lxc.service libvirtd
+
