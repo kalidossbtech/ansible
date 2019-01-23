@@ -1,0 +1,24 @@
+----
+#This will create install playbook and configure ssh with client machines in LXC envionment
+
+- hosts: all
+  gather_facts: False
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  tasks:
+    - name: Install python
+      raw: test -e /usr/bin/python || (apt-get update && apt-get install python )
+    #use this method install key in our client machine or
+    - name: Fancy way of doing authorized keys
+      authorized_key: user=root
+                      exclusive=no
+                      key="{{ lookup('file','~/.ssh/id_rsa.pub') }}"
+
+    #or you can use this method
+    #- name: create /root/.ssh
+    #  file: pat=/root/.ssh state=directory mode=0700
+    #- name: create /root/.ssh/authorized_keys
+    #  lineinfile: dest=/root/.ssh/authorized_keys line="{{ lookup('file','~/.ssh/id_rsa.pub') }}"
