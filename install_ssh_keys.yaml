@@ -1,0 +1,22 @@
+---
+  #Run it as ansible-playbook -i <inventory_file> install_ssh_keys.yaml  --ask-pass
+  #If you want to use become then make it as
+  #become: yes
+  #become_user: root
+  #become_method: sudo
+  #and run it as ansible-playbook -i <inventory_file> install_ssh_keys.yaml  --ask-become-pass
+  #install the ssh key machine in client 
+  
+  - hosts: centos_1
+    gather_facts: true
+    remote_user: root
+    become: no
+    tasks:
+      - name: install ssh keys
+        authorized_key:
+          user: root
+          state: present
+          exclusive: no
+          key: "{{ lookup('file','~/.ssh/id_rsa.pub') }}"
+
+~
