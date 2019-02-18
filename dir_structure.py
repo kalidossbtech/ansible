@@ -1,9 +1,9 @@
 # Create the directory structure of ansible
 # Name : kalidoss
 # Email : kalidossbtech@gmail.com
-# This file is under Editing for upgradation
+# Python version : Python 3.7.2
 
-#Run this file : python dir_structure.py <PROJECT_NAME>
+#Run this file : python dir_structure.py 
 
 '''
 ├── LICENSE
