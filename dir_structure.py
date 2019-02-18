@@ -49,12 +49,11 @@
 '''
 
 import os, sys
+#Variables
 
-pwd = os.getcwd()
-HOME_DIR = pwd
-PROJECT_NAME = 'project_name' ###sys.argv[2]
+HOME_DIR = os.getcwd()
+PROJECT_NAME = input("Type Your Project Name: ")
 TOP_DIR = ['config', 'docs', 'group_vars', 'host_vars', 'inventory', 'playbooks', 'plugins', 'roles']
-
 
 # create the directory structure using class c_dir
 class c_dir:
@@ -79,11 +78,8 @@ class c_dir:
         pwd_group_vars = os.path.join(os.path.join(HOME_DIR, PROJECT_NAME), 'group_vars')
         os.chdir(pwd_group_vars)
 
-        g_all = open('all.yml', 'w'); g_all.close()
-        g_dev = open('dev.yml', 'w'); g_dev.close()
-        g_link = os.symlink('dev.yml','default.ini')
-        g_preprod = open('preprod.yml', 'w'); g_preprod.close()
-        g_prod = open('prod.yml', 'w'); g_prod.close()
+        for i in ['all.yml', 'dev.yml', 'preprod.yml', 'prod.yml']:
+            req = open('%s'%i, 'w');req.close()
 
     def host_vars(): pass
 
@@ -91,11 +87,9 @@ class c_dir:
         pwd_inventory = os.path.join(os.path.join(HOME_DIR, PROJECT_NAME), 'inventory')
         os.chdir(pwd_inventory)
 
-        i_dev = open('dev.ini', 'w');i_dev.close()
-        i_preprod = open('preprod.ini', 'w');i_preprod.close()
-        i_prod = open('preod.ini', 'w');i_prod.close()
-
-    # symbolic link creation
+        for i in ['dev.ini','prepod.ini','prod.ini']:
+            req = open('%s'%i, 'w');req.close()
+        os.symlink('dev.yml', 'default.ini')
 
     def playbooks():
         pwd_inventory = os.path.join(os.path.join(HOME_DIR, PROJECT_NAME), 'playbooks')
@@ -115,7 +109,7 @@ class c_dir:
         req = open('requirements.yml', 'w');req.close()
 
 
-print("We are going to create the directory structure of ansible in %s" % pwd)
+print("We are going to create the directory structure of ansible in %s" % HOME_DIR)
 yn = str(input("Are you ok with that (y/n): "))
 
 # if true then it will create the structure
